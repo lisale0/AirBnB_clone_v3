@@ -81,7 +81,6 @@ class FileStorage:
     def get(self, cls, id):
         """  retrieves an object associate w. cls and id  """
         all_obj = self.all(cls)
-        input(all_obj)
         for k, v in all_obj.items():
             if id in k:
                 return v
@@ -92,5 +91,3 @@ class FileStorage:
         """ counts the number of objects in storage  """
         all_objs = self.all(cls)
         return len(all_objs)
-        
-            
