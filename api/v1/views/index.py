@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-from api.v1.views import app_views
 from flask import Blueprint
-from flask import Flask
 
-app = Flask(__name__)
+app_views = Blueprint('app_views', __name__, template_folder='/api/v1')
 
-@app.route('/status')
-def status(app_views):
-    
+@app_views.route('/status/')
+def status():
+    return "{status: OK}"
