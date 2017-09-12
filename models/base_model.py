@@ -40,7 +40,7 @@ class BaseModel:
         """instantiation of new BaseModel Class"""
 
         if kwargs:
-            self.__set_attributes(kwargs)
+            self.__dict__ = **kwargs
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -64,7 +64,7 @@ class BaseModel:
             if attr_dict['__class__']:
                 attr_dict.pop('__class__')
         for attr, val in attr_dict.items():
-            setattr(self, attr, val)
+            self.__dict__ = **kwargs;
 
     def __is_serializable(self, obj_v):
         """
