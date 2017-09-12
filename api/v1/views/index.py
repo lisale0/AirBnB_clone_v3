@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+"""
+Module: index
+"""
 from api.v1.views import app_views
-from flask import Blueprint
-from flask import Flask
+from flask import jsonify
 
-app = Flask(__name__)
 
-@app.route('/status')
-def status(app_views):
-    
+@app_views.route('/status/', strict_slashes=False)
+def status():
+    """ returns status: OK JSON  """
+    return jsonify({"status": "OK"})
