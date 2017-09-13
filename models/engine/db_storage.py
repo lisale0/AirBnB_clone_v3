@@ -64,6 +64,7 @@ class DBStorage:
         """ deletes obj from current database session if not None """
         if obj is not None:
             self.__session.delete(obj)
+            self.__session.commit()
 
     def reload(self):
         """ creates all tables in database & session from engine """
@@ -85,7 +86,6 @@ class DBStorage:
         for k, v in all_obj.items():
             if id in k:
                 return v
-
         return None
 
     def count(self, cls=None):
