@@ -10,6 +10,7 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 from models import storage
+from flask import request
 
 @app_views.route('/states/', strict_slashes=False)
 def get_states():
@@ -31,8 +32,32 @@ def get_state_byID(state_id):
 
 @app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['DELETE'])
 def delete_state_byID(state_id):
+    """ delete state by id"""
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
     storage.delete(state)
     return jsonify({}), 200
+
+@app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['PUT'])
+def put_state_byID(state_id):
+    """ update a state by id"""
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+    try:
+        request_data = request.get_json()
+    except:
+        request_data = None
+    if request_data is None:
+        return "Not a JSON", 404
+    if 'id' in request_data.keys():
+        request_data.pop('id')
+    if 'created_at' in request_data.keys():
+        request_data.pop('created_at')
+    if 'updated_at' in request_data.keys():
+        request_data.pop('updated_at')
+    for k, v in request_data.items():
+        setattr(state, k, v)
+    state.save()
+    return jsonify(state.to_json()), 200
