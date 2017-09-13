@@ -4,6 +4,7 @@ module: State api
 """
 from api.v1.views import app_views
 from flask import jsonify
+from flask import abort
 from models.base_model import BaseModel
 from models.state import State
 from models.user import User
@@ -22,7 +23,16 @@ def get_states():
 @app_views.route('/states/<string:state_id>', strict_slashes=False, methods=['GET'])
 def get_state_byID(state_id):
     """ returns state by id """
-    all_states = storage.all("State")
-    for k, v in all_states.items():
-        if k == state_id:
-            return(jsonify(v.to_json()))
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+    return(jsonify(state.to_json()))
+
+
+@app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['DELETE'])
+def delete_state_byID(state_id):
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+    storage.delete(state)
+    return jsonify({}), 200
