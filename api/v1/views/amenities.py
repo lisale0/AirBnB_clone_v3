@@ -12,34 +12,26 @@ from models.amenity import Amenity
 from models import storage
 from flask import request
 
-@app_views.route('/states/<string:state_id>/cities', strict_slashes=False)
-def get_amenities_byState(state_id):
-    """ returns cities: return all cities from specified state in json format  """
-    all_cities = storage.all("City")
-    state = storage.get("State", state_id)
-    if state is None:
-        abort(404)
-    json_array = []
-    for k, v in all_cities.items():
-        if (v.to_json()['state_id'] == state_id):
-            json_array.append(v.to_json())
-    return (jsonify(json_array))
+@app_views.route('/amenities/', methods=['GET'], strict_slashes=False)
+def get_amenities():
+    """ returns all amenities """
+    _amenities = [amenity.to_json() for amenity in storage.all('Amenity').values()]
+    return jsonify(_amenities)
 
-@app_views.route('/cities/<string:city_id>', strict_slashes=False, methods=['GET'])
-def get_amenities_byID(city_id):
-    """ returns state by id """
-    city = storage.get("City", city_id)
-    if city is None:
+@app_views.route('/amenities/<string:amenity_id>', strict_slashes=False, methods=['GET'])
+def get_amenities_byID(amenity_id):
+    """ returns amenity by id """
+    amenity = storage.get("Amenity", amenity_id)
+    if amenity is None:
         abort(404)
-    return(jsonify(city.to_json()))
+    return(jsonify(amenity.to_json()))
 
-@app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['DELETE'])
-def delete_amenities_byID(city_id):
-    """ delete state by id"""
-    city = storage.get("City", city_id)
-    if city is None:
+@app_views.route('/amenities/<string:amenity_id>', strict_slashes=False, methods=['DELETE'])
+def delete_amenities_byID(amenity_id):
+    """ delete amenity by id"""
+    if amenity is None:
         abort(404)
-    storage.delete(city)
+    storage.delete(amenity)
     return jsonify({}), 200
 
 @app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['PUT'])
