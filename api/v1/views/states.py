@@ -29,7 +29,6 @@ def get_state_byID(state_id):
         abort(404)
     return(jsonify(state.to_json()))
 
-
 @app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['DELETE'])
 def delete_state_byID(state_id):
     """ delete state by id"""
@@ -38,6 +37,20 @@ def delete_state_byID(state_id):
         abort(404)
     storage.delete(state)
     return jsonify({}), 200
+
+@app_views.route('/states/', methods=['POST'], strict_slashes=False)
+def post_state():
+    """ creates a state """
+    json_obj = None
+    try:
+        json_obj = request.get_json()
+    except:
+        return 'Not a JSON', 400
+    if 'name' not in json_obj.keys():
+        return 'Missing name', 400
+    state = State(**json_obj)
+    state.save()
+    return jsonify(state.to_json()), 201
 
 @app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['PUT'])
 def put_state_byID(state_id):
