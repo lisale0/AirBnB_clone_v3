@@ -112,6 +112,15 @@ class TestStateDBInstances(unittest.TestCase):
                 exist_in_all = True
         self.assertFalse(exist_in_all)
 
+    def test_state_get(self):
+        state_id = self.state.id
+        storage.get("State", state_id)
+        self.assertFalse(False)
+
+    def test_state_count(self):
+        state_id = self.state.id
+        storage.count("State")
+        self.assertFalse(False)
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestUserDBInstances(unittest.TestCase):
@@ -159,6 +168,15 @@ class TestUserDBInstances(unittest.TestCase):
                 exist_in_all = True
         self.assertFalse(exist_in_all)
 
+    def test_user_get(self):
+        state_id = self.state.id
+        storage.get("State", state_id)
+        self.assertFalse(False)
+
+    def test_user_count(self):
+        state_id = self.state.id
+        storage.count("State")
+        self.assertFalse(False)
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestCityDBInstances(unittest.TestCase):
@@ -198,6 +216,15 @@ class TestCityDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all)
         self.assertTrue(exist_in_all_city)
 
+    def test_city_get(self):
+        state_id = self.state.id
+        storage.get("State", state_id)
+        self.assertFalse(False)
+
+    def test_city_count(self):
+        state_id = self.state.id
+        storage.count("State")
+        self.assertFalse(False)
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestCityDBInstancesUnderscore(unittest.TestCase):
@@ -291,6 +318,16 @@ class TestPlaceDBInstances(unittest.TestCase):
 
         self.assertTrue(exist_in_all)
         self.assertTrue(exist_in_all_place)
+
+    def test_place_get(self):
+        state_id = self.state.id
+        storage.get("State", state_id)
+        self.assertFalse(False)
+
+    def test_place_count(self):
+        state_id = self.state.id
+        storage.count("State")
+        self.assertFalse(False)
 
 if __name__ == '__main__':
     unittest.main
