@@ -33,7 +33,7 @@ def delete_state_byID(state_id):
     storage.delete(state)
     return jsonify({}), 200
 
-@app_views.route('/states/', methods=['POST'], strict_slashes=False)
+@app_views.route('/states/', strict_slashes=False, methods=['POST'])
 def post_state():
     """ creates a state  """
     json_obj = None

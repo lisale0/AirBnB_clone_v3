@@ -42,6 +42,21 @@ def delete_city_byID(city_id):
     storage.delete(city)
     return jsonify({}), 200
 
+@app_views.route('/states/<string:state_id>/cities', strict_slashes=False, methods=['POST'])
+def post_city(state_id):
+    """ creates a city  """
+    json_obj = None
+    try:
+        json_obj = request.get_json()
+    except:
+        return 'Not a JSON', 400
+
+    if 'name' not in json_obj.keys():
+        return 'Missing name', 400
+    city = City(**json_obj)
+    city.save()
+    return jsonify(city.to_json()), 201
+
 @app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['PUT'])
 def put_city_byID(city_id):
     """ update a state by id"""
