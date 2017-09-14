@@ -21,15 +21,15 @@ def get_reviews(place_id):
                  methods=['GET'], strict_slashes=False)
 def get_single_review(review_id):
     """ returns a review object in JSON format """
-    #    try:  # <--- testing
-    review = storage.get('Review', user_id)
-    if review is None:  # <--- testing
+    try:  # <--- testing
+        review = storage.get('Review', review_id)
+        #    if review is None:  # <--- testing
+        #        abort(404)  # <--- testing
+        return jsonify(review.to_json())  # <--- testing
+    except:  # <--- testing
         abort(404)  # <--- testing
-        #        return jsonify(review.to_json())  # <--- testing
-        #    except:  # <--- testing
-        #        abort(404) # <--- testing
 
-    return jsonify(review.to_json())  # <--- testing
+#    return jsonify(review.to_json())  # <--- testing
 
 
 @app_views.route('/reviews/<review_id>',
@@ -74,8 +74,8 @@ def post_review(place_id):
                  methods=['PUT'], strict_slashes=False)
 def put_review(review_id):
     """ updates a place review  """
-    user = storage.get('Review', review_id)
-    if user is None:
+    review = storage.get('Review', review_id)
+    if review is None:
         abort(404)
     try:
         response = request.get_json()
