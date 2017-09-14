@@ -199,7 +199,6 @@ class TestUserFsInstances(unittest.TestCase):
                 actual = 1
         self.assertTrue(1 == actual)
 
-
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_state_count(self):
         """ test count all """
