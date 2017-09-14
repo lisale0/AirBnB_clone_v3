@@ -42,7 +42,7 @@ def delete_city_byID(city_id=None):
     if city is None:
         abort(404)
     storage.delete(city)
-    return jsonify({}), 200
+    return jsonify({})
 
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
