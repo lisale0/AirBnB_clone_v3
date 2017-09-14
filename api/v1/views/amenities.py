@@ -35,11 +35,26 @@ def delete_amenities_byID(amenity_id):
     storage.delete(amenity)
     return jsonify({}), 200
 
-@app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['PUT'])
-def put_amenities_byID(city_id):
+@app_views.route('/amenities', strict_slashes=False, methods=['POST'])
+def post_amenity():
+    """ creates an amenity  """
+    json_obj = None
+    try:
+        json_obj = request.get_json()
+    except:
+        return 'Not a JSON', 400
+
+    if 'name' not in json_obj.keys():
+        return 'Missing name', 400
+    amenity = Amenity(**json_obj)
+    amenity.save()
+    return jsonify(amenity.to_json()), 201
+
+@app_views.route('/amenities/<string:amenity_id>', strict_slashes=False, methods=['PUT'])
+def put_amenities_byID(amenity_id):
     """ update a state by id"""
-    city = storage.get("City", city_id)
-    if city is None:
+    amenity = storage.get("Amenity", amenity_id)
+    if amenity is None:
         abort(404)
     try:
         request_data = request.get_json()
@@ -54,6 +69,6 @@ def put_amenities_byID(city_id):
     if 'updated_at' in request_data.keys():
         request_data.pop('updated_at')
     for k, v in request_data.items():
-        setattr(city, k, v)
-    city.save()
-    return jsonify(city.to_json()), 200
+        setattr(amenity, k, v)
+    amenity.save()
+    return jsonify(amenity.to_json()), 200
