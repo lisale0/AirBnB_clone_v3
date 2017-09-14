@@ -65,11 +65,11 @@ def delete_city_byID(city_id):  # <--- removed '=None', ^removed'string:'
                  strict_slashes=False)
 def post_city(state_id=None):
     """ creates a city  """
-    if state_id is None:  # <--- testing
-        abort(404)  # testing
-    state = storage.get("State", state_id)  # <--- testing
-    if state is None:  # <--- testing
-        abort(404)  # testing
+#    if state_id is None:  # <--- testing
+#        abort(404)  # testing
+#    state = storage.get("State", state_id)  # <--- testing
+#    if state is None:  # <--- testing
+#        abort(404)  # testing
 
     try:
         response = request.get_json()
@@ -82,9 +82,9 @@ def post_city(state_id=None):
     if 'name' not in response.keys():
         return 'Missing name', 400
 
-#    state = storage.get("State", state_id)  #<-- testing
-#    if state is None:
-#        abort(404)
+    state = storage.get("State", state_id)  #<-- testing
+    if state is None:
+        abort(404)
 
     city = City(**response)
     city.state_id = state_id
