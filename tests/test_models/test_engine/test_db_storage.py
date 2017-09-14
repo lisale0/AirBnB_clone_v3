@@ -102,6 +102,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all_states)
 
     def test_state_delete(self):
+        """ test state delete """
         state_id = self.state.id
         storage.delete(self.state)
         self.state = None
@@ -113,6 +114,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.assertFalse(exist_in_all)
 
     def test_state_get(self):
+        """ test state get """
         state_exists = False
         state_id = self.state.id
         state = storage.get("State", state_id)
@@ -121,6 +123,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.assertTrue(state_exists)
 
     def test_state_count(self):
+        """ test state count """
         count_exists = False
         count = storage.count("State")
         if count is not None:
@@ -164,6 +167,7 @@ class TestUserDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all_users)
 
     def test_user_delete(self):
+        """ test user delete """
         user_id = self.user.id
         storage.delete(self.user)
         self.user = None
@@ -175,6 +179,7 @@ class TestUserDBInstances(unittest.TestCase):
         self.assertFalse(exist_in_all)
 
     def test_user_get(self):
+        """ test user get """
         user_exists = False
         user_id = self.user.id
         user = storage.get("User", user_id)
@@ -183,6 +188,7 @@ class TestUserDBInstances(unittest.TestCase):
         self.assertTrue(user_exists)
 
     def test_user_count(self):
+        """ test user count """
         count_exists = False
         count = storage.count("User")
         if count is not None:
@@ -229,6 +235,7 @@ class TestCityDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all_city)
 
     def test_city_get(self):
+        """ testing city get """
         city_exists = False
         city_id = self.city.id
         city = storage.get("City", city_id)
@@ -237,6 +244,7 @@ class TestCityDBInstances(unittest.TestCase):
         self.assertTrue(city_exists)
 
     def test_city_count(self):
+        """ testing city count """
         count_exists = False
         count = storage.count("City")
         if count is not None:
@@ -283,6 +291,7 @@ class TestCityDBInstancesUnderscore(unittest.TestCase):
         self.assertTrue(exist_in_all_city)
 
     def test_city_get(self):
+        """ testing city get() """
         city_exists = False
         city_id = self.city.id
         city = storage.get("City", city_id)
@@ -291,6 +300,7 @@ class TestCityDBInstancesUnderscore(unittest.TestCase):
         self.assertTrue(city_exists)
 
     def test_city_count(self):
+        """ testing city count() """
         count_exists = False
         count = storage.count("City")
         if count is not None:
@@ -353,6 +363,7 @@ class TestPlaceDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all_place)
 
     def test_place_get(self):
+        """ test place get """
         place_exists = False
         place_id = self.place.id
         place = storage.get("Place", place_id)
@@ -361,6 +372,7 @@ class TestPlaceDBInstances(unittest.TestCase):
         self.assertTrue(place_exists)
 
     def test_place_count(self):
+        """ test place count """
         count_exists = False
         count = storage.count("Place")
         if count is not None:

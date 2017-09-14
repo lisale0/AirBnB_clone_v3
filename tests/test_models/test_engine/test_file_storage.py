@@ -201,7 +201,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_state_count(self):
-        """ test count all """
+        """ test state count """
         state_count_exists = False
         new_storage = FileStorage()
         state_count = new_storage.count("State")
@@ -211,7 +211,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_city_count(self):
-        """ test count all """
+        """ test city count """
         city_count_exists = False
         new_storage = FileStorage()
         city_count = new_storage.count("City")
@@ -221,7 +221,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_amenity_count(self):
-        """ test count all """
+        """ test amenity count """
         amenity_count_exists = False
         new_storage = FileStorage()
         amenity_count = new_storage.count("Amenity")
@@ -231,7 +231,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_place_count(self):
-        """ test count all """
+        """ test place count """
         place_count_exists = False
         new_storage = FileStorage()
         place_count = new_storage.count("Place")
@@ -241,7 +241,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_review_count(self):
-        """ test count all """
+        """ test review count """
         review_count_exists = False
         new_storage = FileStorage()
         review_count = new_storage.count("Review")
@@ -251,7 +251,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_user_count(self):
-        """ test count all """
+        """ test user count """
         user_count_exists = False
         new_storage = FileStorage()
         user_count = new_storage.count("User")
