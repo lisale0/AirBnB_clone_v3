@@ -24,7 +24,7 @@ def stats():
     """ returns number of objects by type  """
     class_counts = {}
     convert_dict = {
-        'Amenity': 'amenitiesfg',
+        'Amenity': 'amenities',
         'State': 'states',
         'City': 'cities',
         'User': 'users',
