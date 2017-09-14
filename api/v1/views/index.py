@@ -20,16 +20,34 @@ def status():
     return jsonify({"status": "OK"})
 
 
+#@app_views.route('/stats/', strict_slashes=False)
+#def stats():
+#    """ returns count: all models  """
+#    cls_models = {"amenities": "Amenity", "cities": "City",
+#                  "places": "Place", "reviews": "Review",
+#                  "states": "State", "users": "User"}
+#    ret_count = {}
+#    for k, v in cls_models.items():
+#        if storage.count(v):
+#            ret_count[k] = storage.count(v)
+#        else:
+#            ret_count[k] = 0
+#    return jsonify(ret_count)
+
 @app_views.route('/stats/', strict_slashes=False)
 def stats():
-    """ returns count: all models  """
-    cls_models = {"amenities": "Amenity", "cities": "City",
-                  "places": "Place", "reviews": "Review",
-                  "states": "State", "users": "User"}
-    ret_count = {}
-    for k, v in cls_models.items():
-        if storage.count(v):
-            ret_count[k] = storage.count(v)
-        else:
-            ret_count[k] = 0
-    return jsonify(ret_count)
+    """ returns number of objects by type  """
+    class_counts = {}
+    convert_dict = {
+        'Amenity': 'amenity',
+        'State': 'state',
+        'City': 'city',
+        'User': 'user',
+        'Place': 'place',
+        'Review': 'review'
+    }
+
+    for k, v in convert_dict.items():
+        class_counts[v] = storage.count(k)
+
+    return jsonify(class_counts)
