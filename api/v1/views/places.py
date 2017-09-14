@@ -62,6 +62,9 @@ def post_place(city_id):
         return 'Missing name', 400
     if 'user_id' not in json_obj.keys():
         return 'Missing user_id', 400
+    user = storage.get("User", user_id)
+    if user is None:
+        abort(404)
     json_obj["city_id"] = city_id
     place = Place(**json_obj)
     place.save()
