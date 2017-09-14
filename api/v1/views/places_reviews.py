@@ -6,7 +6,8 @@ from api.v1.views import app_views, storage, Review
 from flask import jsonify, abort, request
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<place_id>/reviews',
+                 methods=['GET'], strict_slashes=False)
 def get_reviews(place_id):
     """ returns all reviews got a place in JSON format """
     place = storage.all('Place', place_id)
