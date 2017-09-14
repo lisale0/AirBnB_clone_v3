@@ -21,15 +21,11 @@ def get_reviews(place_id):
                  methods=['GET'], strict_slashes=False)
 def get_single_review(review_id):
     """ returns a review object in JSON format """
-    try:  # <--- testing
+    try:
         review = storage.get('Review', review_id)
-        #    if review is None:  # <--- testing
-        #        abort(404)  # <--- testing
-        return jsonify(review.to_json())  # <--- testing
-    except:  # <--- testing
-        abort(404)  # <--- testing
-
-#    return jsonify(review.to_json())  # <--- testing
+        return jsonify(review.to_json())
+    except:
+        abort(404)
 
 
 @app_views.route('/reviews/<review_id>',
