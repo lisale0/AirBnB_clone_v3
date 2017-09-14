@@ -20,8 +20,8 @@ def status():
     return jsonify({"status": "OK"})
 
 
-#@app_views.route('/stats/', strict_slashes=False)
-#def stats():
+# @app_views.route('/stats/', strict_slashes=False)
+# def stats():
 #    """ returns count: all models  """
 #    cls_models = {"amenities": "Amenity", "cities": "City",
 #                  "places": "Place", "reviews": "Review",
@@ -33,6 +33,7 @@ def status():
 #        else:
 #            ret_count[k] = 0
 #    return jsonify(ret_count)
+
 
 @app_views.route('/stats/', strict_slashes=False)
 def stats():
@@ -47,7 +48,7 @@ def stats():
         'Review': 'review'
     }
 
-    for k, v in convert_dict.items():
-        class_counts[v] = storage.count(k)
+    for _class in convert_dict.keys():
+        class_counts[convert_dict[_class]] = storage.count(_class)
 
     return jsonify(class_counts)
