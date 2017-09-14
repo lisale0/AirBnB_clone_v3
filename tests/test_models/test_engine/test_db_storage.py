@@ -329,5 +329,18 @@ class TestPlaceDBInstances(unittest.TestCase):
         storage.count("State")
         self.assertFalse(False)
 
+    def test_count(self):
+        """test count all"""
+        count = len(storage.all())
+        state_1 = State(name="test_state")
+        state_1.save()
+        self.assertEqual(count + 1, storage.count())
+        state_2 = State(name="State test count")
+        state_2.save()
+        self.assertEqual(count + 2, storage.count())
+        storage.delete(state_2)
+        self.assertEqual(count + 1, storage.count())
+
+
 if __name__ == '__main__':
     unittest.main
