@@ -74,15 +74,15 @@ def post_city(state_id=None):
     try:
         response = request.get_json()
     except:
-        return "Not a JSON", 400
-#        response = None  #<--- testing
+        #        return "Not a JSON", 400
+        response = None  # <--- testing
 
-#    if response is None:  #<--- testing
-#        return "Not a JSON", 400  # testing
+    if response is None:  # <--- testing
+        return "Not a JSON", 400  # testing
     if 'name' not in response.keys():
         return 'Missing name', 400
 
-    state = storage.get("State", state_id)  #<-- testing
+    state = storage.get("State", state_id)  # <-- testing
     if state is None:
         abort(404)
 
