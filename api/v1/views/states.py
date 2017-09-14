@@ -2,20 +2,18 @@
 """
 Module: index
 """
-from api.v1.views import app_views
+from api.v1.views import app_views, storage, State
 from flask import jsonify, abort, make_response, request
-from models.state import State
-from models import storage
 
 
-@app_views.route('/states/', strict_slashes=False, methods=['GET'])
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_states():
     """ returns all state objects in JSON format   """
     _states = [state.to_json() for state in storage.all('State').values()]
     return jsonify(_states)
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state_byID(state_id=None):
     """ returns a state object in JSON format  """
     if state_id is None:
@@ -26,8 +24,8 @@ def get_state_byID(state_id=None):
     return(jsonify(state.to_json()))
 
 
-@app_views.route('/states/<string:state_id>/',
-                 strict_slashes=False, methods=['DELETE'])
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state_byID(state_id=None):
     """ delete state by id"""
     if state_id is None:
@@ -39,13 +37,15 @@ def delete_state_byID(state_id=None):
     return jsonify({}), 200
 
 
-@app_views.route('/states/', strict_slashes=False, methods=['POST'])
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
     """ creates a state  """
     json_obj = None
     try:
         json_obj = request.get_json()
     except:
+        json_obj = None
+    if json_obj is None:
         return "Not a JSON", 400
 
     if 'name' not in json_obj.keys():
@@ -55,24 +55,40 @@ def post_state():
     return jsonify(state.to_json()), 201
 
 
-@app_views.route('/states/<string:state_id>/',
-                 strict_slashes=False, methods=['PUT'])
+@app_views.route('/states/<state_id>', methods=['PUT'],
+                 strict_slashes=False)
 def put_state_byID(state_id=None):
     """ update a state by id"""
-    if state_id is None:
-        abort(404)
+    try:
+        response = request.get_json()
+    except:
+        response = None
+    if response is None:
+        return "Not a JSON", 400
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
-    try:
-        request_data = request.get_json()
-    except:
-        request_data = None
-    if request_data is None:
-        return "Not a JSON", 400
-    for item in ["id", "created_at", "updated_at"]:
-        request_data.pop(item, None)
-    for k, v in request_data.items():
+    for k in ("id", "created_at", "updated_at"):
+        response.pop(k, None)
+    for k, v in response.items():
         setattr(state, k, v)
     state.save()
     return jsonify(state.to_json()), 200
+
+#    if state_id is None:
+#        abort(404)
+#    state = storage.get("State", state_id)
+#    if state is None:
+#        abort(404)
+#    try:
+#        request_data = request.get_json()
+#    except:
+#        request_data = None
+#    if request_data is None:
+#        return "Not a JSON", 400
+#    for item in ["id", "created_at", "updated_at"]:
+#        request_data.pop(item, None)
+#    for k, v in request_data.items():
+#        setattr(state, k, v)
+#    state.save()
+#    return jsonify(state.to_json()), 200
