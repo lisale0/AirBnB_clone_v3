@@ -23,6 +23,7 @@ def get_state_byID(state_id=None):
         abort(404)
     return(jsonify(state.to_json()))
 
+
 @app_views.route('/states/<string:state_id>/',
                  strict_slashes=False, methods=['DELETE'])
 def delete_state_byID(state_id):
