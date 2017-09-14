@@ -12,12 +12,6 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
-@app.errorhandler(404)
-def notFound(error):
-    """ return 404"""
-    return jsonify({"error": "Not found"}), 404
-
-
 @app.teardown_appcontext
 def teardown(self):
     """ close storage session """
@@ -27,7 +21,7 @@ def teardown(self):
 @app.errorhandler(404)
 def handle_404(error):
     """ returns the 404 request error in JSON format """
-    return app.make_response(jsonify({"error": "Not found"})), 404
+    return app.make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
