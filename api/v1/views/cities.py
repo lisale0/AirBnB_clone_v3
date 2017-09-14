@@ -13,24 +13,21 @@ from models import storage
                  strict_slashes=False)
 def get_cities_byState(state_id=None):
     """ returns cities: return all cities
-    from specified state in json format  """
+    from specified city in json format  """
     if state_id is None:
         abort(404)
-    all_cities = storage.all("City")
     state = storage.get("State", state_id)
-    if state is None or all_cities is None:
+    if state is None:
         abort(404)
-    json_array = []
-    for k, v in all_cities.items():
-        if (v.to_json()['state_id'] == state_id):
-            json_array.append(v.to_json())
-    return (jsonify(json_array))
+    else:
+        cities = [city.to_json() for city in state.cities]
+    return jsonify(cities)
 
 
 @app_views.route('/cities/<string:city_id>', methods=['GET'],
                  strict_slashes=False)
 def get_cities_byID(city_id=None):
-    """ returns state by id """
+    """ returns city by id """
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
@@ -40,12 +37,31 @@ def get_cities_byID(city_id=None):
 @app_views.route('/cities/<string:city_id>/', methods=['DELETE'],
                  strict_slashes=False)
 def delete_city_byID(city_id=None):
-    """ delete state by id"""
+    """ delete city by id"""
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
     storage.delete(city)
     return jsonify({}), 200
+
+
+@app_views.route('/states/<state_id>/cities', strict_slashes=False,
+                 methods=['POST'])
+def post_city(state_id):
+    """ creates a city  """
+    if state_id is None:
+        abort(404)
+    json_obj = None
+    try:
+        json_obj = request.get_json()
+    except:
+        return "Not a JSON", 400
+    if 'name' not in json_obj.keys():
+        return "Missing name", 400
+    json_obj["state_id"] = state_id
+    city = City(**json_obj)
+    city.save()
+    return jsonify(city.to_json()), 201
 
 
 @app_views.route('/cities/<string:city_id>/', methods=['PUT'],
@@ -61,7 +77,7 @@ def put_city_byID(city_id=None):
         request_data = None
     if request_data is None:
         return "Not a JSON", 400
-    for item in ["id", "created_at", "updated_at"]:
+    for item in ("id", "created_at", "updated_at"):
         request_data.pop(item, None)
     for k, v in request_data.items():
         setattr(city, k, v)
