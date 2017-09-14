@@ -59,36 +59,20 @@ def post_state():
                  strict_slashes=False)
 def put_state_byID(state_id=None):
     """ update a state by id"""
-    try:
-        response = request.get_json()
-    except:
-        response = None
-    if response is None:
-        return "Not a JSON", 400
+    if state_id is None:
+        abort(404)
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
-    for k in ("id", "created_at", "updated_at"):
-        response.pop(k, None)
-    for k, v in response.items():
+    try:
+        request_data = request.get_json()
+    except:
+        request_data = None
+    if request_data is None:
+        return "Not a JSON", 400
+    for item in ("id", "created_at", "updated_at"):
+        request_data.pop(item, None)
+    for k, v in request_data.items():
         setattr(state, k, v)
     state.save()
     return jsonify(state.to_json()), 200
-
-#    if state_id is None:
-#        abort(404)
-#    state = storage.get("State", state_id)
-#    if state is None:
-#        abort(404)
-#    try:
-#        request_data = request.get_json()
-#    except:
-#        request_data = None
-#    if request_data is None:
-#        return "Not a JSON", 400
-#    for item in ["id", "created_at", "updated_at"]:
-#        request_data.pop(item, None)
-#    for k, v in request_data.items():
-#        setattr(state, k, v)
-#    state.save()
-#    return jsonify(state.to_json()), 200
