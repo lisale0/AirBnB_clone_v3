@@ -37,6 +37,8 @@ def get_place_byID(place_id=None):
                  strict_slashes=False)
 def delete_places_byID(place_id=None):
     """ delete place by id"""
+    if place_id is None:
+        abort(404)
     place = storage.get("Place", place_id)
     if not place:
         abort(404)
