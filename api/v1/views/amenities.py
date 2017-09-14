@@ -29,7 +29,8 @@ def get_amenities_byID(amenity_id):
 @app_views.route('/amenities/<string:amenity_id>', strict_slashes=False, methods=['DELETE'])
 def delete_amenities_byID(amenity_id):
     """ delete amenity by id"""
-    if amenity is None:
+    amenity = storage.get("Amenity", amenity_id)
+    if not amenity:
         abort(404)
     storage.delete(amenity)
     return jsonify({}), 200
