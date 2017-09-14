@@ -19,6 +19,7 @@ class TestDBStorageDocs(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('..... Testing Documentation .....')
         print('..... For FileStorage Class .....')
@@ -73,6 +74,7 @@ class TestStateDBInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('......... Testing DBStorage .;.......')
         print('........ For State Class ........')
@@ -137,6 +139,7 @@ class TestUserDBInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing FileStorage ......')
         print('.......... User  Class ..........')
@@ -202,6 +205,7 @@ class TestCityDBInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing DBStorage ......')
         print('.......... City  Class ..........')
@@ -258,6 +262,7 @@ class TestCityDBInstancesUnderscore(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing FileStorage ......')
         print('.......... City Class ..........')
@@ -314,6 +319,7 @@ class TestPlaceDBInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing DBStorage ......')
         print('.......... Place  Class ..........')
@@ -380,4 +386,5 @@ class TestPlaceDBInstances(unittest.TestCase):
         self.assertTrue(count_exists)
 
 if __name__ == '__main__':
+    """ unittest main"""
     unittest.main

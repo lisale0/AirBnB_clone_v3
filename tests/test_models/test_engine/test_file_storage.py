@@ -24,6 +24,7 @@ class TestFileStorageDocs(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('..... Testing Documentation .....')
         print('..... For FileStorage Class .....')
@@ -75,6 +76,7 @@ class TestBmFsInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing FileStorate ......')
         print('..... For FileStorage Class .....')
@@ -153,6 +155,7 @@ class TestUserFsInstances(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setting up the class """
         print('\n\n.................................')
         print('...... Testing FileStorage ......')
         print('.......... User  Class ..........')
