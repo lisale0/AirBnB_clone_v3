@@ -112,6 +112,21 @@ class TestStateDBInstances(unittest.TestCase):
                 exist_in_all = True
         self.assertFalse(exist_in_all)
 
+    def test_state_get(self):
+        state_exists = False
+        state_id = self.state.id
+        state = storage.get("State", state_id)
+        if state is not None:
+            state_exists = True
+        self.assertTrue(state_exists)
+
+    def test_state_count(self):
+        count_exists = False
+        count = storage.count("State")
+        if count is not None:
+            count_exists = True
+        self.assertTrue(count_exists)
+
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestUserDBInstances(unittest.TestCase):
@@ -159,6 +174,21 @@ class TestUserDBInstances(unittest.TestCase):
                 exist_in_all = True
         self.assertFalse(exist_in_all)
 
+    def test_user_get(self):
+        user_exists = False
+        user_id = self.user.id
+        user = storage.get("User", user_id)
+        if user is not None:
+            user_exists = True
+        self.assertTrue(user_exists)
+
+    def test_user_count(self):
+        count_exists = False
+        count = storage.count("User")
+        if count is not None:
+                count_exists = True
+        self.assertTrue(count_exists)
+
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestCityDBInstances(unittest.TestCase):
@@ -198,6 +228,21 @@ class TestCityDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all)
         self.assertTrue(exist_in_all_city)
 
+    def test_city_get(self):
+        city_exists = False
+        city_id = self.city.id
+        city = storage.get("City", city_id)
+        if city is not None:
+                city_exists = True
+        self.assertTrue(city_exists)
+
+    def test_city_count(self):
+        count_exists = False
+        count = storage.count("City")
+        if count is not None:
+                count_exists = True
+        self.assertTrue(count_exists)
+
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestCityDBInstancesUnderscore(unittest.TestCase):
@@ -236,6 +281,21 @@ class TestCityDBInstancesUnderscore(unittest.TestCase):
 
         self.assertTrue(exist_in_all)
         self.assertTrue(exist_in_all_city)
+
+    def test_city_get(self):
+        city_exists = False
+        city_id = self.city.id
+        city = storage.get("City", city_id)
+        if city is not None:
+            city_exists = True
+        self.assertTrue(city_exists)
+
+    def test_city_count(self):
+        count_exists = False
+        count = storage.count("City")
+        if count is not None:
+                count_exists = True
+        self.assertTrue(count_exists)
 
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
@@ -291,6 +351,21 @@ class TestPlaceDBInstances(unittest.TestCase):
 
         self.assertTrue(exist_in_all)
         self.assertTrue(exist_in_all_place)
+
+    def test_place_get(self):
+        place_exists = False
+        place_id = self.place.id
+        place = storage.get("Place", place_id)
+        if place is not None:
+            place_exists = True
+        self.assertTrue(place_exists)
+
+    def test_place_count(self):
+        count_exists = False
+        count = storage.count("Place")
+        if count is not None:
+                    count_exists = True
+        self.assertTrue(count_exists)
 
 if __name__ == '__main__':
     unittest.main

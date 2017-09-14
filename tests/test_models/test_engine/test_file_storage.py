@@ -200,5 +200,65 @@ class TestUserFsInstances(unittest.TestCase):
         self.assertTrue(1 == actual)
 
 
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_state_count(self):
+        """ test count all """
+        state_count_exists = False
+        new_storage = FileStorage()
+        state_count = new_storage.count("State")
+        if state_count is not None:
+            state_count_exists = True
+        self.assertTrue(state_count_exists)
+
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_city_count(self):
+        """ test count all """
+        city_count_exists = False
+        new_storage = FileStorage()
+        city_count = new_storage.count("City")
+        if city_count is not None:
+            city_count_exists = True
+            self.assertTrue(city_count_exists)
+
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_amenity_count(self):
+        """ test count all """
+        amenity_count_exists = False
+        new_storage = FileStorage()
+        amenity_count = new_storage.count("Amenity")
+        if amenity_count is not None:
+            amenity_count_exists = True
+        self.assertTrue(amenity_count_exists)
+
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_place_count(self):
+        """ test count all """
+        place_count_exists = False
+        new_storage = FileStorage()
+        place_count = new_storage.count("Place")
+        if place_count is not None:
+                place_count_exists = True
+        self.assertTrue(place_count_exists)
+
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_review_count(self):
+        """ test count all """
+        review_count_exists = False
+        new_storage = FileStorage()
+        review_count = new_storage.count("Review")
+        if review_count is not None:
+            review_count_exists = True
+        self.assertTrue(review_count_exists)
+
+    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+    def test_user_count(self):
+        """ test count all """
+        user_count_exists = False
+        new_storage = FileStorage()
+        user_count = new_storage.count("User")
+        if user_count is not None:
+            user_count_exists = True
+        self.assertTrue(user_count_exists)
+
 if __name__ == '__main__':
     unittest.main
