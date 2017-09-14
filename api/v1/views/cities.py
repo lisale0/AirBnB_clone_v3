@@ -12,9 +12,11 @@ from models.amenity import Amenity
 from models import storage
 from flask import request
 
+
 @app_views.route('/states/<string:state_id>/cities', strict_slashes=False)
 def get_cities_byState(state_id):
-    """ returns cities: return all cities from specified state in json format  """
+    """ returns cities: return all cities
+    from specified state in json format  """
     all_cities = storage.all("City")
     state = storage.get("State", state_id)
     if state is None:
@@ -25,7 +27,9 @@ def get_cities_byState(state_id):
             json_array.append(v.to_json())
     return (jsonify(json_array))
 
-@app_views.route('/cities/<string:city_id>', strict_slashes=False, methods=['GET'])
+
+@app_views.route('/cities/<string:city_id>',
+                 strict_slashes=False, methods=['GET'])
 def get_cities_byID(city_id):
     """ returns state by id """
     city = storage.get("City", city_id)
@@ -33,7 +37,9 @@ def get_cities_byID(city_id):
         abort(404)
     return(jsonify(city.to_json()))
 
-@app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['DELETE'])
+
+@app_views.route('/cities/<string:city_id>/',
+                 strict_slashes=False, methods=['DELETE'])
 def delete_city_byID(city_id):
     """ delete state by id"""
     city = storage.get("City", city_id)
@@ -42,7 +48,9 @@ def delete_city_byID(city_id):
     storage.delete(city)
     return jsonify({}), 200
 
-@app_views.route('/cities/<string:city_id>/', strict_slashes=False, methods=['PUT'])
+
+@app_views.route('/cities/<string:city_id>/',
+                 strict_slashes=False, methods=['PUT'])
 def put_city_byID(city_id):
     """ update a state by id"""
     city = storage.get("City", city_id)

@@ -8,6 +8,7 @@ from models.base_model import BaseModel
 from models.state import State
 from models import storage
 
+
 @app_views.route('/states/', methods=['GET'], strict_slashes=False)
 def get_all_states():
     """ returns all state objects in JSON format   """
@@ -24,7 +25,9 @@ def get_state_byID(state_id=None):
             return jsonify(state.to_json())
     abort(404)
 
-@app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['DELETE'])
+
+@app_views.route('/states/<string:state_id>/',
+                 strict_slashes=False, methods=['DELETE'])
 def delete_state_byID(state_id):
     """ delete state by id"""
     state = storage.get("State", state_id)
@@ -32,6 +35,7 @@ def delete_state_byID(state_id):
         abort(404)
     storage.delete(state)
     return jsonify({}), 200
+
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def post_state():
@@ -48,7 +52,9 @@ def post_state():
     state.save()
     return jsonify(state.to_json()), 201
 
-@app_views.route('/states/<string:state_id>/', strict_slashes=False, methods=['PUT'])
+
+@app_views.route('/states/<string:state_id>/',
+                 strict_slashes=False, methods=['PUT'])
 def put_state_byID(state_id):
     """ update a state by id"""
     state = storage.get("State", state_id)
