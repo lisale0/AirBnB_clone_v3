@@ -25,6 +25,8 @@ def get_places_byCityId(city_id=None):
                  strict_slashes=False)
 def get_place_byID(place_id=None):
     """ get place by ID """
+    if place_id is None:
+        abort(404)
     place = storage.get("Place", place_id)
     if place is None:
         abort(404)
