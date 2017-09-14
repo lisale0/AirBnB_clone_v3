@@ -83,8 +83,10 @@ class DBStorage:
     def get(self, cls, id):
         """  retrieves an object associate w. cls and id  """
         all_obj = self.all(cls)
+        searched_id = "{}".format(id)
+        return all_obj.get(searched_id)
         for k, v in all_obj.items():
-            if id in k:
+            if searched_id == k:
                 return v
         return None
 
