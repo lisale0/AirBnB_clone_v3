@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-module: State api
+module: City api
 """
 from api.v1.views import app_views
 from flask import jsonify, abort, request
@@ -45,11 +45,14 @@ def delete_city_byID(city_id=None):
     return jsonify({}), 200
 
 
-@app_views.route('/states/<state_id>/cities', strict_slashes=False,
-                 methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def post_city(state_id):
     """ creates a city  """
     if state_id is None:
+        abort(404)
+    state = storage.get("State", state_id)
+    if state is None:
         abort(404)
     json_obj = None
     try:
