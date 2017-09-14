@@ -16,8 +16,6 @@ from api.v1.views.users import *
 from api.v1.views.places import *
 from api.v1.views.amenities import *
 from api.v1.views.places_reviews import *
-# from flask import jsonify
-# from models.base_model import BaseModel
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
