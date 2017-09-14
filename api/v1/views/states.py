@@ -26,7 +26,7 @@ def get_state_byID(state_id=None):
 
 @app_views.route('/states/<string:state_id>/',
                  strict_slashes=False, methods=['DELETE'])
-def delete_state_byID(state_id):
+def delete_state_byID(state_id=None):
     """ delete state by id"""
     state = storage.get("State", state_id)
     if state is None:
@@ -54,7 +54,7 @@ def post_state():
 
 @app_views.route('/states/<string:state_id>/',
                  strict_slashes=False, methods=['PUT'])
-def put_state_byID(state_id):
+def put_state_byID(state_id=None):
     """ update a state by id"""
     state = storage.get("State", state_id)
     if state is None:
@@ -64,13 +64,9 @@ def put_state_byID(state_id):
     except:
         request_data = None
     if request_data is None:
-        return "Not a JSON", 404
-    if 'id' in request_data.keys():
-        request_data.pop('id')
-    if 'created_at' in request_data.keys():
-        request_data.pop('created_at')
-    if 'updated_at' in request_data.keys():
-        request_data.pop('updated_at')
+        return "Not a JSON", 400
+    for item in ["id", "created_at", "updated_at"]:
+        request_data.pop(item, None)
     for k, v in request_data.items():
         setattr(state, k, v)
     state.save()
