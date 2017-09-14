@@ -8,6 +8,7 @@ Module: __init__ - initializes the views folder
 
 from flask import Blueprint
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
+from models import storage
 from api.v1.views.index import *
 from api.v1.views.states import *
 from api.v1.views.cities import *
@@ -20,4 +21,3 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-from models import storage
