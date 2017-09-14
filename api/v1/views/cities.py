@@ -80,7 +80,7 @@ def put_city_byID(city_id=None):
         request_data = None
     if request_data is None:
         return "Not a JSON", 400
-    for item in ("id", "created_at", "updated_at"):
+    for item in ("id", "created_at", "updated_at", "state_id"):
         request_data.pop(item, None)
     for k, v in request_data.items():
         setattr(city, k, v)
