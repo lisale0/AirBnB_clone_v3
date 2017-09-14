@@ -37,28 +37,79 @@ def delete_city_byID(city_id):  # <--- removed '=None', ^removed'string:'
     return jsonify({})
 
 
+# this passed
+# @app_views.route('/states/<state_id>/cities', methods=['POST'],
+#                 strict_slashes=False)
+# def post_city(state_id):
+#   """ creates a city  """
+#   try:
+#       response = request.get_json()
+#   except:
+#       response = None
+#
+#    if response is None:
+#        return "Not a JSON", 400
+#    if 'name' not in response.keys():
+#        return 'Missing name', 400
+#
+#    state = storage.get("State", state_id)
+#    if state is None:
+#        abort(404)
+#
+#    city = City(**response)
+#    city.state_id = state_id
+#    city.save()
+#    return jsonify(city.to_json()), 201
+
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
                  strict_slashes=False)
-def post_city(state_id):
+def post_city(state_id=None):
     """ creates a city  """
+    if state_id is None:  # <--- testing
+        abort(404)  # testing
+    state = storage.get("State", state_id)  # <--- testing
+    if state is None:  # <--- testing
+        abort(404)  # testing
+
     try:
         response = request.get_json()
     except:
-        response = None
-
-    if response is None:
         return "Not a JSON", 400
+#        response = None  #<--- testing
+
+#    if response is None:  #<--- testing
+#        return "Not a JSON", 400  # testing
     if 'name' not in response.keys():
         return 'Missing name', 400
 
-    state = storage.get("State", state_id)
-    if state is None:
-        abort(404)
+#    state = storage.get("State", state_id)  #<-- testing
+#    if state is None:
+#        abort(404)
 
     city = City(**response)
     city.state_id = state_id
     city.save()
     return jsonify(city.to_json()), 201
+
+
+# this is old post_city
+
+#    if state_id is None:
+#        abort(404)
+#    state = storage.get("State", state_id)
+#    if state is None:
+#        abort(404)
+#    json_obj = None
+#    try:
+#        json_obj = request.get_json()
+#    except:
+#        return "Not a JSON", 400
+#    if 'name' not in json_obj.keys():
+#        return "Missing name", 400
+#    json_obj["state_id"] = state_id
+#    city = City(**json_obj)
+#    city.save()
+#    return jsonify(city.to_json()), 201
 
 
 @app_views.route('/cities/<city_id>/', methods=['PUT'], strict_slashes=False)
@@ -80,21 +131,3 @@ def put_city_byID(city_id):  # <--- removed '=None', ^removed 'string:'
         setattr(city, k, v)
     city.save()
     return jsonify(city.to_json()), 200
-
-
-#    if state_id is None:
-#        abort(404)
-#    state = storage.get("State", state_id)
-#    if state is None:
-#        abort(404)
-#    json_obj = None
-#    try:
-#        json_obj = request.get_json()
-#    except:
-#        return "Not a JSON", 400
-#    if 'name' not in json_obj.keys():
-#        return "Missing name", 400
-#    json_obj["state_id"] = state_id
-#    city = City(**json_obj)
-#    city.save()
-#    return jsonify(city.to_json()), 201
