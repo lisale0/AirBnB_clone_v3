@@ -40,12 +40,12 @@ def stats():
     """ returns number of objects by type  """
     class_counts = {}
     convert_dict = {
-        'Amenity': 'amenity',
-        'State': 'state',
-        'City': 'city',
-        'User': 'user',
-        'Place': 'place',
-        'Review': 'review'
+        'Amenity': 'amenities',
+        'State': 'states',
+        'City': 'cities',
+        'User': 'users',
+        'Place': 'places',
+        'Review': 'reviews'
     }
 
     for _class in convert_dict.keys():
