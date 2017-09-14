@@ -82,7 +82,7 @@ def put_review(review_id):
         response = None
     if response is None:
         return "Not a JSON", 400
-    for item in ("id", "user_id", "created_at", "updated_at"):
+    for item in ("id", "user_id", "created_at", "updated_at", "place_id"):
         response.pop(item, None)
     for k, v in response.items():
         setattr(review, k, v)

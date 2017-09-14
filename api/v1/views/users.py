@@ -75,7 +75,7 @@ def put_user(user_id=None):
         response = None
     if response is None:
         return "Not a JSON", 400
-    for item in ("id", "created_at", "updated_at"):
+    for item in ("id", "created_at", "updated_at", "email"):
         response.pop(item, None)
     for k, v in response.items():
         setattr(user, k, v)

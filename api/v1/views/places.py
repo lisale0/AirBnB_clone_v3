@@ -86,7 +86,7 @@ def put_place_byID(place_id=None):
         response = None
     if response is None:
         return "Not a JSON", 400
-    for item in ("id", "created_at", "updated_at"):
+    for item in ("id", "created_at", "updated_at", "user_id", "city_id"):
         response.pop(item, None)
     for k, v in response.items():
         setattr(place, k, v)
