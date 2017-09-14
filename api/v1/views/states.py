@@ -18,6 +18,8 @@ def get_all_states():
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
 def get_state_byID(state_id=None):
     """ returns a state object in JSON format  """
+    if state_id is None:
+        abort(404)
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
@@ -28,6 +30,8 @@ def get_state_byID(state_id=None):
                  strict_slashes=False, methods=['DELETE'])
 def delete_state_byID(state_id=None):
     """ delete state by id"""
+    if state_id is None:
+        abort(404)
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
@@ -55,6 +59,8 @@ def post_state():
                  strict_slashes=False, methods=['PUT'])
 def put_state_byID(state_id=None):
     """ update a state by id"""
+    if state_id is None:
+        abort(404)
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
