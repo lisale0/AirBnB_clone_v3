@@ -66,7 +66,7 @@ def put_amenities_byID(amenity_id=None):
     except:
         response = None
     if response is None:
-        return "Not a JSON", 404
+        return "Not a JSON", 400
     for item in ("id", "created_at", "updated_at"):
         response.pop(item, None)
     for k, v in response.items():
