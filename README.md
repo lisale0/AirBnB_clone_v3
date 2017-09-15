@@ -89,8 +89,63 @@ create: create [ARG]
 Uses [Travis-CI](https://travis-ci.org/) to run all tests on all commits to the
 github repo
 
-## Authors
+#### API Tests
+In order to run the api, you need to open up the endpoint (route)
+```
+HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m api.v1.app
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+...
+```
+In another terminal, you can test the API calls:
+##### State
+|   **Description**                  |  **HTTP Method** |   **format**   | 
+|------------------------------------|------------------|----------------|
+| Retrieve list of all state objects |     GET          | /api/v1/states |
+| Retrieve  a state object   |     GET          | /api/v1/states/<state_id> |
+| Delete a state object   |     DELETE          | /api/v1/states/<state_id> |
+| Create a new state object   |     POST          | /api/v1/states |
+| Alter a  state object   |     PUT          | /api/v1/states/<state_id> |
 
+##### City
+|   **Description**                  |  **HTTP Method** |   **format**   | 
+|------------------------------------|------------------|----------------|
+| Retrieve list of all city objects |     GET          | /api/v1/states/<state_id>/cities |
+| Retrieve  a city object   |     GET          | /api/v1/cities/<city_id> |
+| Delete a city object   |     DELETE          | /api/v1/cities/<city_id> |
+| Create a new city object   |     POST          | /api/v1/states/<state_id>/cities |
+| Alter a  city object   |     PUT          | /api/v1/cities/<city_id> |
+
+
+##### Amenity
+|   **Description**                  |  **HTTP Method** |   **format**   | 
+|------------------------------------|------------------|----------------|
+| Retrieve list of all amenity objects |     GET          | /api/v1/amenities |
+| Retrieve  an amenity object   |     GET          | /api/v1/amenities/<amenity_id> |
+| Delete an amenity object   |     DELETE          | /api/v1/amenities/<amenity_id> |
+| Create a new amenity object   |     POST          | /api/v1/amenities |
+| Alter an amenity object   |     PUT          | /api/v1/amenities/<amenity_id> |
+
+##### User
+|   **Description**                  |  **HTTP Method** |   **format**   | 
+|------------------------------------|------------------|----------------|
+| Retrieve list of all user objects |     GET          | /api/v1/users |
+| Retrieve  a user object   |     GET          | /api/v1/users/<user_id> |
+| Delete a user object   |     DELETE          | /api/v1/users/<user_id> |
+| Create a new user object   |     POST          | /api/v1/users |
+| Alter a user object   |     PUT          | /api/v1/users/<user_id> |
+
+##### Place
+|   **Description**                  |  **HTTP Method** |   **format**   | 
+|------------------------------------|------------------|----------------|
+| Retrieve list of all place objects |     GET          | /api/v1/cities/<city_id>/places |
+| Retrieve a place object   |     GET          | /api/v1/places/<place_id> |
+| Delete a place object   |     DELETE          | /api/v1/places/<place_id> |
+| Create a new place object   |     POST          | /api/v1/cities/<city_id>/places |
+| Alter a place object   |     PUT          | /api/v1/places/<place_id> |
+
+## Authors
+* Stuart Kuredjian [@dbconfession78](https://github.com/dbconfession78)
+* Lisa Leung [@lisale0](https://github.com/lisale0)
 * MJ Johnson, [@mj31508](https://github.com/mj31508)
 * David John Coleman II, [davidjohncoleman.com](http://www.davidjohncoleman.com/)
 * Kimberly Wong, [kjowong](http://github.com/kjowong) | [@kjowong](http://twitter.com/kjowong) | [kjowong@gmail.com](kjowong@gmail.com)
