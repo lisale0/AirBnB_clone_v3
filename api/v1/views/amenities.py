@@ -25,7 +25,7 @@ def get_amenities_byID(amenity_id=None):
     return(jsonify(amenity.to_json()))
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'],
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_amenities_byID(amenity_id=None):
     """ delete amenity by id"""
@@ -65,7 +65,7 @@ def put_amenities_byID(amenity_id=None):
         response = request.get_json()
     except:
         response = None
-    if respone is None:
+    if response is None:
         return "Not a JSON", 404
     for item in ("id", "created_at", "updated_at"):
         response.pop(item, None)
