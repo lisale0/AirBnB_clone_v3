@@ -1,35 +1,48 @@
 #!/usr/bin/python3
 """
-    Fabric script that distributes an archive to my web servers
+deploy
 """
-from fabric.api import *
-from fabric.operations import run, put, sudo
 import os
-env.hosts = ['66.70.184.249', '54.210.138.75']
+import time
+from fabric.api import local, run, hosts, env, put
+
+env.hosts = ['144.217.245.116', '54.91.123.178']
 
 
 def do_deploy(archive_path):
     """
-        using fabric to distribute archive
+    deploy
     """
-    if os.path.isfile(archive_path) is False:
+    if not archive_path:
         return False
-    try:
-        archive = archive_path.split("/")[-1]
-        path = "/data/web_static/releases"
-        put("{}".format(archive_path), "/tmp/{}".format(archive))
-        folder = archive.split(".")
-        run("mkdir -p {}/{}/".format(path, folder[0]))
-        new_archive = '.'.join(folder)
-        run("tar -xzf /tmp/{} -C {}/{}/"
-            .format(new_archive, path, folder[0]))
-        run("rm /tmp/{}".format(archive))
-        run("mv {}/{}/web_static/* {}/{}/"
-            .format(path, folder[0], path, folder[0]))
-        run("rm -rf {}/{}/web_static".format(path, folder[0]))
-        run("rm -rf /data/web_static/current")
-        run("ln -sf {}/{} /data/web_static/current"
-            .format(path, folder[0]))
-        return True
-    except:
+
+    if not os.path.exists(archive_path):
         return False
+
+    filename = archive_path.split("/")[-1]
+    """upload the archive to the /tmp/ directory of the web server"""
+    put(archive_path, "/tmp/{}".format(filename))
+
+    """ make directory to uncompress files"""
+    run("sudo mkdir -p /data/web_static/releases/{}".format(filename))
+
+    """uncompress the archive to the folder"""
+    run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}"
+        .format(filename, filename))
+
+    """ remove tgz file"""
+    run("sudo rm /tmp/{}".format(filename))
+
+    """ move all the files"""
+    run("sudo mv /data/web_static/releases/{}/web_static/*"
+        " /data/web_static/releases/{}"
+        .format(filename, filename))
+
+    """remove"""
+    run("sudo rm -rf /data/web_static/releases/{}/web_static"
+        .format(filename))
+
+    run("sudo rm -rf /data/web_static/current")
+    run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        .format(filename))
+    print("New version deployed!")
